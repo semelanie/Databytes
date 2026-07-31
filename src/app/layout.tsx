@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Sora, Inter } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { LoadingScreen } from "@/components/layout/LoadingScreen";
+import { CustomCursor } from "@/components/layout/CustomCursor";
+import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
+import { CookieConsent } from "@/components/layout/CookieConsent";
 import "@/styles/globals.css";
 
 const sora = Sora({
@@ -38,8 +43,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${sora.variable} ${inter.variable}`}>
       <body className="font-body">
+        <LoadingScreen />
+        <CustomCursor />
         <Navbar />
         <main>{children}</main>
+        <WhatsAppButton />
+        <ScrollToTop />
+        <CookieConsent />
         <Footer />
       </body>
     </html>

@@ -1,33 +1,40 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
-import { products } from "@/data/products";
 
-export const metadata: Metadata = { title: "Products" };
+export const metadata: Metadata = { title: "FAQ" };
 
-export default function ProductsPage() {
+const faqs = [
+  {
+    q: "What areas do you serve?",
+    a: "We work with government, education, private-sector, and residential clients across Seychelles.",
+  },
+  {
+    q: "Do you offer ongoing support after launch?",
+    a: "Yes — managed IT services and support plans are available for all our builds.",
+  },
+  {
+    q: "Can you work with an existing system?",
+    a: "Yes, we regularly integrate with or migrate existing systems rather than starting from scratch.",
+  },
+];
+
+export default function FAQPage() {
   return (
     <Container className="py-20">
       <h1 className="font-display text-4xl font-bold text-navy">
-        Product Solutions
+        Frequently Asked Questions
       </h1>
-      <p className="mt-3 max-w-2xl text-ink/70">
-        Ready-built platforms that can be tailored to your organization.
-      </p>
 
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {products.map((product) => (
-          <Link key={product.slug} href={`/products/${product.slug}`}>
-            <Card className="h-full">
-              <h2 className="font-display text-lg font-semibold text-navy">
-                {product.title}
-              </h2>
-              <p className="mt-2 text-sm text-ink/70">{product.summary}</p>
-            </Card>
-          </Link>
+      <dl className="mt-10 divide-y divide-mist">
+        {faqs.map((item) => (
+          <div key={item.q} className="py-6">
+            <dt className="font-display text-lg font-semibold text-navy">
+              {item.q}
+            </dt>
+            <dd className="mt-2 text-ink/70">{item.a}</dd>
+          </div>
         ))}
-      </div>
+      </dl>
     </Container>
   );
 }
