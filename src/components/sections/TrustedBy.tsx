@@ -1,51 +1,120 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Play, Pause } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
 
 // Logos shown here should only be added once the organization has confirmed
 // it's fine to be listed — see DATABYTES_SPEC.md §5.
 const clients = [
   { name: "Seyviour", src: "/client-seyviour.png" },
   { name: "Seychelles Qualifications Authority", src: "/client-sqa.png" },
-  {
-    name: "National Institute of Health and Social Studies",
-    src: "/client-nihss.jpeg",
-  },
+  { name: "National Institute of Health and Social Studies", src: "/client-nihss.jpeg" },
+  { name: "Round Table Seychelles", src: "/client-rts.png" },
+  { name: "Seychelles Law Commission", src: "/client-lawcommission.png" },
+  { name: "Attorney General's Office", src: "/client-ag.webp" },
 ];
 
+const SLIDE_SECONDS = 4;
+
 export function TrustedBy() {
+  const [index, setIndex] = useState(0);
+  const [playing, setPlaying] = useState(true);
+  const [cycle, setCycle] = useState(0);
+
+  const goTo = useCallback((i: number) => {
+    setIndex(i);
+    setCycle((c) => c + 1);
+  }, []);
+
+  useEffect(() => {
+    if (!playing) return;
+    const timer = setTimeout(() => {
+      setIndex((i) => (i + 1) % clients.length);
+      setCycle((c) => c + 1);
+    }, SLIDE_SECONDS * 1000);
+    return () => clearTimeout(timer);
+  }, [index, playing]);
+
+  const client = clients[index]!;
+
   return (
-    <section className="border-y border-mist bg-mist/50 py-12">
-      <Container>
-        <div className="flex items-center justify-center gap-3">
+    <section className="relative overflow-hidden border-y border-mist bg-mist/50 py-16">
+      <AmbientBlobs />
+      <Container className="relative flex flex-col items-center">
+        <div className="flex items-center gap-3">
           <span className="h-px w-8 bg-primary" />
           <p className="text-center text-sm font-semibold uppercase tracking-wide text-primary">
             Trusted Clients &amp; Partners
           </p>
           <span className="h-px w-8 bg-primary" />
         </div>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-12 gap-y-8">
-          {clients.map((client, i) => (
+
+        <div className="relative mt-10 flex h-28 w-full max-w-xs items-center justify-center">
+          <AnimatePresence mode="wait">
             <motion.div
               key={client.name}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="relative h-14 w-14 grayscale transition-all duration-300 hover:grayscale-0"
-              title={client.name}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.4 }}
+              className="flex flex-col items-center gap-3"
             >
-              <Image
-                src={client.src}
-                alt={client.name}
-                fill
-                sizes="56px"
-                className="object-contain"
-              />
+              <div className="relative h-16 w-28">
+                <Image
+                  src={client.src}
+                  alt={client.name}
+                  fill
+                  sizes="112px"
+                  className="object-contain"
+                />
+              </div>
+              <p className="text-center text-xs font-medium text-ink/60">
+                {client.name}
+              </p>
             </motion.div>
-          ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Dot navigation + progress bar + play/pause, matching a familiar
+            product-carousel control cluster. */}
+        <div className="mt-8 flex items-center gap-4">
+          <div className="flex items-center gap-2">
+            {clients.map((c, i) => (
+              <button
+                key={c.name}
+                onClick={() => goTo(i)}
+                aria-label={`Show ${c.name}`}
+                aria-current={i === index}
+                className={`h-2 w-2 rounded-full transition-colors duration-200 ${
+                  i === index ? "bg-primary" : "bg-mist hover:bg-primary/40"
+                }`}
+              />
+            ))}
+          </div>
+
+          <div className="relative h-1.5 w-20 overflow-hidden rounded-full bg-mist">
+            {playing && (
+              <motion.div
+                key={cycle}
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: SLIDE_SECONDS, ease: "linear" }}
+                className="h-full rounded-full bg-primary"
+              />
+            )}
+          </div>
+
+          <button
+            onClick={() => setPlaying((p) => !p)}
+            aria-label={playing ? "Pause" : "Play"}
+            className="flex h-7 w-7 items-center justify-center rounded-full border border-mist text-ink/50 transition-colors hover:border-primary hover:text-primary"
+          >
+            {playing ? <Pause size={12} /> : <Play size={12} />}
+          </button>
         </div>
       </Container>
     </section>
