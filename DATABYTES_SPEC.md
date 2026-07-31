@@ -59,9 +59,30 @@ one deliverable. That's a 3–6 month enterprise build, not a v1. Splitting it:
 
 **Phase 2 (structure left ready, not built yet)**
 - Remaining service/product detail pages (same template, new content)
-- AI chatbot, client portal, quote estimator, knowledge base
+- AI chatbot, client portal, quote estimator (as a multi-step form), knowledge base
 - Dark mode toggle
-- Blog/Insights, newsletter signup, live project showcase
+- Blog/Insights (with CMS), newsletter signup
+- Live chat, mega menu, breadcrumb navigation
+- Technology Partners logo strip (Microsoft, Cisco, Ubiquiti, etc. — needs partner-status confirmation, same permission issue as client logos)
+- Testimonials (no real quotes supplied yet)
+- Working hours on the contact page (not specified yet — placeholder needed or real hours from the client)
+- Privacy Policy / Terms & Conditions pages (no legal copy supplied)
+- Downloadable company profile PDF
+
+## 6. Second reference prompt (merged)
+
+A second, overlapping "Website Development Prompt" was supplied later, written for
+generic AI website builders (ChatGPT/Lovable/Bolt). Where it introduced content not
+already in v1 and cheap to add, it's now folded in directly: **Why Choose Databytes**,
+**Industries We Serve**, and **Our Process** are now homepage sections, plus a
+scroll-to-top button and a cookie consent banner. Where it repeated what v1 already
+had (React/Next.js/Tailwind/Framer Motion stack, similar service list, SEO basics),
+no change was needed. Everything else it introduced beyond v1 is filed under Phase 2
+above rather than built now, per the same phasing logic as before.
+
+That prompt also referenced a live site at `databytes.sc` as a citation source —
+worth checking against for real company copy (About Us story, actual working hours,
+existing testimonials) before writing placeholder content for those sections., live project showcase
 
 ## 5. One compliance flag, not a design note
 
