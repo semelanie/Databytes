@@ -1,13 +1,22 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, Cloud, Server, Lock } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { PhotoCollage } from "@/components/sections/PhotoCollage";
 
 export function AboutTeaser() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const panelY = useTransform(scrollYProgress, [0, 1], [40, -40]);
+
   return (
-    <section className="py-24">
+    <section ref={sectionRef} className="py-24">
       <Container className="grid items-center gap-12 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -38,25 +47,8 @@ export function AboutTeaser() {
           </Link>
         </motion.div>
 
-        {/* No real company photography supplied yet — this stands in for
-            the photo-collage panel until real images are available. */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="grid grid-cols-2 gap-4"
-        >
-          {[Cloud, Server, Lock].map((Icon, i) => (
-            <div
-              key={i}
-              className={`flex aspect-square items-center justify-center rounded-card bg-brand-gradient ${
-                i === 0 ? "col-span-2" : ""
-              }`}
-            >
-              <Icon size={40} className="text-white/80" aria-hidden="true" />
-            </div>
-          ))}
+        <motion.div style={{ y: panelY }}>
+          <PhotoCollage />
         </motion.div>
       </Container>
     </section>
