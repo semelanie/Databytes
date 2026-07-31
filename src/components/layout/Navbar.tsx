@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Container } from "@/components/ui/Container";
@@ -21,8 +22,17 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-mist bg-white/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="font-display text-lg font-bold text-navy">
-          Databytes
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/logo.jpg"
+            alt="Databytes"
+            width={32}
+            height={32}
+            className="rounded-md"
+          />
+          <span className="font-display text-lg font-bold text-navy">
+            Databytes
+          </span>
         </Link>
 
         <nav className="hidden gap-8 md:flex">
