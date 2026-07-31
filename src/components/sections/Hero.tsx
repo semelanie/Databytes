@@ -3,10 +3,12 @@
 import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { ParticleBackground } from "@/components/sections/ParticleBackground";
 
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-brand-gradient text-white">
+      <ParticleBackground />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl"
