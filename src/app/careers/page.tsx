@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { PhotoPageHeader } from "@/components/layout/PhotoPageHeader";
 
 export const metadata: Metadata = { title: "Careers" };
 
 export default function CareersPage() {
   return (
-    <Container className="py-20">
-      <h1 className="font-display text-4xl font-bold text-navy">Careers</h1>
-      <p className="mt-4 max-w-2xl text-ink/70">
-        We&apos;re not currently advertising open roles, but we&apos;re
-        always happy to hear from people interested in working with us.
-      </p>
-      <div className="mt-8">
+    <>
+      <PhotoPageHeader
+        eyebrow="Careers"
+        title="Careers"
+        description="We're not currently advertising open roles, but we're always happy to hear from people interested in working with us."
+        image="https://images.unsplash.com/photo-1745847768367-8a29b2937288?w=1600&q=80&auto=format&fit=crop"
+        imageAlt="Person relaxing with coffee while working on a laptop"
+      />
+      <Container className="py-20">
         <Button href="/contact">Get in Touch</Button>
-      </div>
-    </Container>
+      </Container>
+    </>
   );
 }
