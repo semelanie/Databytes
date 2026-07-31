@@ -1,4 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
+import { QuickLinks } from "@/components/sections/QuickLinks";
+import { MissionVision } from "@/components/sections/MissionVision";
+import { AboutTeaser } from "@/components/sections/AboutTeaser";
 import { TrustedBy } from "@/components/sections/TrustedBy";
 import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
 import { ServicesPreview } from "@/components/sections/ServicesPreview";
@@ -11,6 +14,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <QuickLinks />
+      <MissionVision />
+      <AboutTeaser />
       <TrustedBy />
       <WhyChooseUs />
       <ServicesPreview />
