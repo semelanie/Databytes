@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #ffffff;
+  --color-surface: #f4f7fa;
+  --color-text: #1f2937;
+  --color-primary: #42a8e6;
+  --color-deep: #1e3a8a;
+  --color-navy: #1b1464;
+}
+
+/* Dark palette defined now, applied later once content is stable (see spec §2) */
+.dark {
+  --color-bg: #0e1230;
+  --color-surface: #161a3d;
+  --color-text: #e5e9f5;
+  --color-primary: #5fb8f0;
+  --color-deep: #3a5fc9;
+  --color-navy: #2230a0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
