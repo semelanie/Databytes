@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Cloud, Server, ShieldCheck, Cpu, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { ParticleBackground } from "@/components/sections/ParticleBackground";
+import { ColorMorph } from "@/components/sections/ColorMorph";
 
 const floatingIcons = [
   { Icon: Cloud, top: "18%", left: "20%", delay: 0 },
@@ -14,8 +16,17 @@ const floatingIcons = [
 ];
 
 export function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  // As the Hero scrolls up out of view, the visual panel slides up faster
+  // than the page scroll — a true scroll-linked parallax, not a one-time trigger.
+  const panelY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+
   return (
-    <section className="relative overflow-hidden bg-navy text-white">
+    <section ref={sectionRef} className="relative overflow-hidden bg-navy text-white">
       <div className="grid md:grid-cols-2">
         {/* Left: copy, with a slow-drifting particle network behind it */}
         <div className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32 lg:px-16">
@@ -39,7 +50,7 @@ export function Hero() {
               Seychelles succeed through innovative IT solutions.
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/contact" variant="secondary">
+              <Button href="/services" variant="secondary">
                 Get Started
               </Button>
               <Button
@@ -53,11 +64,15 @@ export function Hero() {
         </div>
 
         {/* Right: full-bleed animated tech visual, edge to edge like a hero photo */}
-        <div className="relative min-h-[360px] overflow-hidden bg-gradient-to-br from-deep via-navy to-navy md:min-h-full">
+        <motion.div
+          style={{ y: panelY }}
+          className="relative min-h-[360px] overflow-hidden bg-gradient-to-br from-deep via-navy to-navy md:min-h-full"
+        >
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-brand-gradient opacity-60"
           />
+          <ColorMorph />
           {floatingIcons.map(({ Icon, top, left, delay }, i) => (
             <motion.div
               key={i}
@@ -81,7 +96,7 @@ export function Hero() {
               <Icon size={28} className="text-primary" aria-hidden="true" />
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* Curved white divider into the next section */}
