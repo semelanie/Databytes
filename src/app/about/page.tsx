@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PhotoPageHeader } from "@/components/layout/PhotoPageHeader";
 import { PhotoCollage } from "@/components/sections/PhotoCollage";
 
 export const metadata: Metadata = { title: "About" };
@@ -19,10 +19,14 @@ const values = [
 export default function AboutPage() {
   return (
     <>
-      <PageHeader
+      <PhotoPageHeader
         eyebrow="About"
         title="About Us"
         description="Innovating today. Empowering tomorrow — Databytes Pty Ltd."
+        image="https://images.unsplash.com/photo-1497366616365-e78dd380d3dd?w=1600&q=80&auto=format&fit=crop"
+        imageAlt="Modern office lounge interior"
+        ctaLabel="Get in Touch"
+        ctaHref="/contact"
       />
       <Container className="py-20">
         <div className="grid items-center gap-12 md:grid-cols-2">
@@ -70,7 +74,7 @@ export default function AboutPage() {
           {values.map((value) => (
             <li
               key={value}
-              className="rounded-full bg-mist px-4 py-2 text-sm font-medium text-ink"
+              className="cursor-default rounded-full bg-mist px-4 py-2 text-sm font-medium text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary hover:text-white hover:shadow-card"
             >
               {value}
             </li>
