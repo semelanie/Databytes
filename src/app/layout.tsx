@@ -5,6 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 import { LoadingScreen } from "@/components/layout/LoadingScreen";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { AIAssistant } from "@/components/layout/AIAssistant";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { CookieConsent } from "@/components/layout/CookieConsent";
 import "@/styles/globals.css";
@@ -48,6 +49,7 @@ export default function RootLayout({
         <Navbar />
         <main>{children}</main>
         <WhatsAppButton />
+        <AIAssistant />
         <ScrollToTop />
         <CookieConsent />
         <Footer />
