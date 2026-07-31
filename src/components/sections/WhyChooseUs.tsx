@@ -2,26 +2,26 @@
 
 import { motion } from "framer-motion";
 import {
-  Users,
+  UserCog,
   Zap,
-  Lightbulb,
-  Wallet,
+  Sparkles,
+  BadgeDollarSign,
   ShieldCheck,
-  Lock,
-  Heart,
-  Globe,
+  ServerCog,
+  Headset,
+  Network,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 
 const reasons = [
-  { icon: Users, label: "Experienced IT Professionals" },
+  { icon: UserCog, label: "Experienced IT Professionals" },
   { icon: Zap, label: "Fast Technical Support" },
-  { icon: Lightbulb, label: "Innovative Solutions" },
-  { icon: Wallet, label: "Affordable Pricing" },
+  { icon: Sparkles, label: "Innovative Solutions" },
+  { icon: BadgeDollarSign, label: "Affordable Pricing" },
   { icon: ShieldCheck, label: "Trusted by Businesses" },
-  { icon: Lock, label: "Secure Infrastructure" },
-  { icon: Heart, label: "Customer Focused" },
-  { icon: Globe, label: "Local Support with Global Standards" },
+  { icon: ServerCog, label: "Secure Infrastructure" },
+  { icon: Headset, label: "Customer Focused" },
+  { icon: Network, label: "Local Support with Global Standards" },
 ];
 
 export function WhyChooseUs() {
