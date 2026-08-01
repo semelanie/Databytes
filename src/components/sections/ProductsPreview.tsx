@@ -49,6 +49,7 @@ export function ProductsPreview() {
                 slug={product.slug}
                 title={product.title}
                 summary={product.summary}
+                hook={product.hook}
                 icon={<product.icon size={22} aria-hidden="true" />}
                 accent={product.accent}
                 badge={product.badge}
