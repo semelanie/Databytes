@@ -12,8 +12,8 @@ export default function CareersPage() {
         eyebrow="Careers"
         title="Careers"
         description="We're not currently advertising open roles, but we're always happy to hear from people interested in working with us."
-        image="https://images.unsplash.com/photo-1745847768367-8a29b2937288?w=1600&q=80&auto=format&fit=crop"
-        imageAlt="Person relaxing with coffee while working on a laptop"
+        image="https://images.unsplash.com/photo-1767449356630-c60094b1d1b4?w=1600&q=80&auto=format&fit=crop"
+        imageAlt="Mobile app screens showing a job search interface"
       />
       <Container className="py-20">
         <Button href="/contact">Get in Touch</Button>
