@@ -16,6 +16,7 @@ export interface Service {
   benefits: string[];
   icon: LucideIcon;
   accent: string;
+  hook: string;
 }
 
 // Phase 1 ships full detail content for the first entry; the rest are index-only
@@ -35,6 +36,7 @@ export const services: Service[] = [
     ],
     icon: Globe,
     accent: "#42A8E6",
+    hook: "Want a website that actually brings in customers?",
   },
   {
     slug: "custom-software-development",
@@ -44,6 +46,7 @@ export const services: Service[] = [
     benefits: [],
     icon: Code2,
     accent: "#8B5CF6",
+    hook: "Tired of workarounds? Let's build software that fits your business.",
   },
   {
     slug: "mobile-applications",
@@ -53,6 +56,7 @@ export const services: Service[] = [
     benefits: [],
     icon: Smartphone,
     accent: "#14B8A6",
+    hook: "Take your business mobile — literally.",
   },
   {
     slug: "network-installation-support",
@@ -62,6 +66,7 @@ export const services: Service[] = [
     benefits: [],
     icon: Network,
     accent: "#F59E0B",
+    hook: "Slow or unreliable network? We'll sort that out.",
   },
   {
     slug: "managed-it-services",
@@ -71,6 +76,7 @@ export const services: Service[] = [
     benefits: [],
     icon: Server,
     accent: "#1E3A8A",
+    hook: "Stop firefighting IT issues — let us handle it for you.",
   },
   {
     slug: "cybersecurity",
@@ -80,5 +86,6 @@ export const services: Service[] = [
     benefits: [],
     icon: ShieldCheck,
     accent: "#EC4899",
+    hook: "One breach can cost more than years of prevention.",
   },
 ];
