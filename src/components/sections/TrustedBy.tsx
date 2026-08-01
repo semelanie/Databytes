@@ -72,14 +72,14 @@ export function TrustedBy() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-wrap items-center justify-center gap-10"
+              className="flex flex-wrap items-center justify-center gap-6 sm:gap-10"
             >
               {slide.map((client) => (
                 <div
                   key={client.name}
                   className="flex flex-col items-center gap-3"
                 >
-                  <div className="relative h-20 w-36">
+                  <div className="relative h-14 w-24 sm:h-20 sm:w-36">
                     <Image
                       src={client.src}
                       alt={client.name}

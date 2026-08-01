@@ -38,7 +38,7 @@ export function Hero() {
       <ParticleBackground />
       <ColorMorph />
 
-      <Container className="relative py-24 md:py-32">
+      <Container className="relative py-16 sm:py-24 md:py-32">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -48,7 +48,7 @@ export function Hero() {
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             Databytes Pty Ltd
           </p>
-          <h1 className="mt-3 font-display text-4xl font-bold leading-tight md:text-5xl">
+          <h1 className="mt-3 font-display text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
             Empowering <span className="text-primary">Businesses</span>{" "}
             Through Smart Technology
           </h1>
