@@ -8,20 +8,20 @@ import { motion } from "framer-motion";
 // Databytes team/office photography whenever that becomes available.
 export const collagePhotos = [
   {
-    src: "https://images.unsplash.com/photo-1497366616365-e78dd380d3dd?w=900&q=80&auto=format&fit=crop",
-    alt: "Modern minimalist office interior with lounge seating",
+    src: "https://images.unsplash.com/photo-1680992044138-ce4864c2b962?w=900&q=80&auto=format&fit=crop",
+    alt: "Close-up of server hardware in a data rack",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1754548930550-be9fa88874f4?w=900&q=80&auto=format&fit=crop",
+    alt: "Developer's multi-monitor workspace with code on screen",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1680691257251-5fead813b73e?w=900&q=80&auto=format&fit=crop",
+    alt: "Close-up of a network switch and patch panel",
   },
   {
     src: "https://images.unsplash.com/photo-1742199009963-c028d0c5a603?w=900&q=80&auto=format&fit=crop",
     alt: "Sleek modern desk setup with multiple monitors",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?w=900&q=80&auto=format&fit=crop",
-    alt: "Team collaborating around a computer in a modern office",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1699885960867-56d5f5262d38?w=900&q=80&auto=format&fit=crop",
-    alt: "Close-up of code on a screen",
   },
 ];
 
