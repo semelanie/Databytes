@@ -26,6 +26,8 @@ export interface Product {
       since these are in-house Databytes products rather than third-party
       platforms with their own brand marks. */
   badge: string;
+  /** Catchy click-to-reveal pitch shown on the card. */
+  hook: string;
 }
 
 export const products: Product[] = [
@@ -46,6 +48,7 @@ export const products: Product[] = [
     icon: Users,
     accent: "#42A8E6",
     badge: "HR",
+    hook: "Simplify HR and admin in one place — request a free trial.",
   },
   {
     slug: "digital-archive-management",
@@ -63,6 +66,7 @@ export const products: Product[] = [
     icon: Archive,
     accent: "#8B5CF6",
     badge: "DA",
+    hook: "Stop losing documents in filing cabinets — see it in action.",
   },
   {
     slug: "ticketing-system",
@@ -79,6 +83,7 @@ export const products: Product[] = [
     icon: Ticket,
     accent: "#F59E0B",
     badge: "TK",
+    hook: "Never lose track of a request again — try it free.",
   },
   {
     slug: "visitor-management",
@@ -89,6 +94,7 @@ export const products: Product[] = [
     icon: UserCheck,
     accent: "#14B8A6",
     badge: "VM",
+    hook: "Know who's in your building, always — request a demo.",
   },
   {
     slug: "fixed-assets",
@@ -105,6 +111,7 @@ export const products: Product[] = [
     icon: Package,
     accent: "#1E3A8A",
     badge: "FA",
+    hook: "Stop guessing what you own — track every asset with ease.",
   },
   {
     slug: "room-booking",
@@ -121,6 +128,7 @@ export const products: Product[] = [
     icon: DoorOpen,
     accent: "#EC4899",
     badge: "RB",
+    hook: "End double-bookings for good — see how it works.",
   },
   {
     slug: "driver-booking",
@@ -137,6 +145,7 @@ export const products: Product[] = [
     icon: Car,
     accent: "#F97316",
     badge: "DB",
+    hook: "Retire the paper logbook — request a free trial.",
   },
   {
     slug: "file-server-gui",
@@ -153,6 +162,7 @@ export const products: Product[] = [
     icon: FolderOpen,
     accent: "#06B6D4",
     badge: "FS",
+    hook: "Give your team a simple way to manage files — try it free.",
   },
   {
     slug: "network-audit",
@@ -169,6 +179,7 @@ export const products: Product[] = [
     icon: Network,
     accent: "#EF4444",
     badge: "NA",
+    hook: "Know your network's weak points before someone else does.",
   },
   {
     slug: "website-building",
@@ -185,6 +196,7 @@ export const products: Product[] = [
     icon: Globe,
     accent: "#22C55E",
     badge: "WB",
+    hook: "Update your own website, no developer needed — see how.",
   },
   {
     slug: "secure-vault",
@@ -201,6 +213,7 @@ export const products: Product[] = [
     icon: Lock,
     accent: "#6366F1",
     badge: "SV",
+    hook: "Keep sensitive documents locked down — request a demo.",
   },
   {
     slug: "shcis",
@@ -215,5 +228,6 @@ export const products: Product[] = [
     icon: Database,
     accent: "#64748B",
     badge: "SH",
+    hook: "One database for staff and client records — see it in action.",
   },
 ];
