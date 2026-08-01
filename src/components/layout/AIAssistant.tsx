@@ -25,7 +25,7 @@ export function AIAssistant() {
         onClick={toggle}
         aria-label={open ? "Close assistant" : "Open assistant"}
         whileTap={{ scale: 0.92 }}
-        className="fixed bottom-24 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-deep text-white shadow-card-hover transition-colors hover:bg-primary"
+        className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-deep text-white shadow-card-hover transition-colors hover:bg-primary"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -47,14 +47,14 @@ export function AIAssistant() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 16, scale: 0.97 }}
             transition={{ duration: 0.2 }}
-            className="fixed bottom-40 right-6 z-40 flex max-h-[28rem] w-[22rem] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-card bg-white shadow-card-hover"
+            className="fixed bottom-24 right-6 z-40 flex max-h-[28rem] w-[22rem] max-w-[calc(100vw-3rem)] flex-col overflow-hidden rounded-card bg-white shadow-card-hover"
           >
             <div className="flex items-center gap-3 bg-navy px-5 py-4 text-white">
               <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10">
                 <Bot size={18} aria-hidden="true" />
               </span>
               <div>
-                <p className="font-display text-sm font-semibold">Databytes Assistant</p>
+                <p className="font-display text-sm font-semibold">Dbytes AI</p>
                 <p className="text-xs text-white/60">Answers from our FAQ</p>
               </div>
             </div>
@@ -62,8 +62,11 @@ export function AIAssistant() {
             <div className="flex-1 overflow-y-auto p-4">
               {selected === null ? (
                 <>
-                  <p className="px-1 text-sm text-ink/70">
-                    Hi! Pick a question below, or reach a real person for anything else.
+                  <p className="px-1 text-sm font-medium text-navy">
+                    Hi! How can I help you with today?
+                  </p>
+                  <p className="mt-1 px-1 text-xs text-ink/60">
+                    Pick a question below, or reach a real person for anything else.
                   </p>
                   <div className="mt-3 space-y-2">
                     {faqs.map((item, i) => (

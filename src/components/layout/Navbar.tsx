@@ -13,7 +13,6 @@ const links = [
   { href: "/products", label: "Products" },
   { href: "/portfolio", label: "Portfolio" },
   { href: "/careers", label: "Careers" },
-  { href: "/faq", label: "FAQ" },
 ];
 
 export function Navbar() {

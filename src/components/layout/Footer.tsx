@@ -5,16 +5,11 @@ import { Container } from "@/components/ui/Container";
 
 const columns = [
   {
-    title: "Company",
+    title: "Quick Links",
     links: [
       { href: "/about", label: "About Us" },
       { href: "/careers", label: "Careers" },
       { href: "/portfolio", label: "Portfolio" },
-    ],
-  },
-  {
-    title: "Solutions",
-    links: [
       { href: "/services", label: "Services" },
       { href: "/products", label: "Products" },
     ],
@@ -23,14 +18,32 @@ const columns = [
 
 // TODO: swap "#" for the real profile URLs once available.
 const socials = [
-  { icon: Facebook, label: "Facebook", href: "#" },
+  {
+    icon: Facebook,
+    label: "Facebook",
+    href: "https://www.facebook.com/people/Databytes-Consultancy-Pty-Ltd/61579964441484/",
+  },
   { icon: Instagram, label: "Instagram", href: "#" },
   { icon: Linkedin, label: "LinkedIn", href: "#" },
 ];
 
 export function Footer() {
   return (
-    <footer className="bg-navy text-white">
+    <footer className="relative bg-navy text-white">
+      {/* Curved top divider, flowing down from the white section above */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -translate-y-[calc(100%-1px)]"
+      >
+        <svg
+          viewBox="0 0 1440 80"
+          preserveAspectRatio="none"
+          className="h-16 w-full fill-navy"
+        >
+          <path d="M0,0 C480,80 960,80 1440,0 L1440,80 L0,80 Z" />
+        </svg>
+      </div>
+
       <Container className="grid gap-10 py-16 md:grid-cols-4">
         <div>
           <div className="flex items-center gap-2">
@@ -81,6 +94,15 @@ export function Footer() {
             </ul>
           </div>
         ))}
+
+        <div>
+          <p className="text-sm font-semibold text-white/90">Working Hours</p>
+          {/* Placeholder — swap for real office hours once confirmed. */}
+          <p className="mt-4 text-sm font-semibold text-white/70">
+            Our office is open:
+          </p>
+          <p className="mt-1 text-sm text-white/70">Mon – Fri: 8:00AM – 4:00PM</p>
+        </div>
 
         <div>
           <p className="text-sm font-semibold text-white/90">Get in touch</p>
