@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { AnimatedNumber } from "@/components/sections/AnimatedNumber";
 
 const steps = [
   { label: "Consultation", icon: MessagesSquare },
@@ -54,9 +55,11 @@ export function OurProcess() {
               className="cursor-default rounded-card border border-mist p-5 transition-colors duration-300 hover:border-primary hover:shadow-card"
             >
               <div className="flex items-center justify-between">
-                <span className="font-display text-2xl font-bold text-primary">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <AnimatedNumber
+                  target={i + 1}
+                  delay={i * 0.06}
+                  className="font-display text-2xl font-bold text-primary"
+                />
                 <step.icon size={20} className="text-primary/70" aria-hidden="true" />
               </div>
               <p className="mt-2 text-sm font-semibold text-ink">{step.label}</p>

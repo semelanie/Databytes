@@ -3,15 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Landmark, GraduationCap, HandHeart, Building2 } from "lucide-react";
+import { Landmark, Building, Building2 } from "lucide-react";
 import { projects, type ProjectCategory } from "@/data/projects";
 
 const categories: { label: ProjectCategory | "All"; icon?: typeof Landmark }[] = [
   { label: "All" },
   { label: "Government", icon: Landmark },
-  { label: "Education", icon: GraduationCap },
-  { label: "NGOs & Community", icon: HandHeart },
-  { label: "Private Sector", icon: Building2 },
+  { label: "Institutional", icon: Building },
+  { label: "Private", icon: Building2 },
 ];
 
 export function PortfolioGrid() {
