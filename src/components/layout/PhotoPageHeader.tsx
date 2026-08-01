@@ -13,6 +13,10 @@ interface PhotoPageHeaderProps {
   imageAlt: string;
   ctaLabel?: string;
   ctaHref?: string;
+  /** "filter" = a light uniform blue tint over the whole photo.
+   *  "right" = a blue wash concentrated on the right side, leaving the
+   *  left (text) side clear. Omit for the plain white-fade default. */
+  overlay?: "filter" | "right";
 }
 
 /**
@@ -28,9 +32,10 @@ export function PhotoPageHeader({
   imageAlt,
   ctaLabel,
   ctaHref,
+  overlay,
 }: PhotoPageHeaderProps) {
   return (
-    <section className="relative h-[420px] overflow-hidden md:h-[480px]">
+    <section className="relative h-[360px] overflow-hidden sm:h-[420px] md:h-[480px]">
       <Image
         src={image}
         alt={imageAlt}
@@ -41,6 +46,12 @@ export function PhotoPageHeader({
       />
       {/* Fades from solid white (readable text area) into the photo */}
       <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-transparent" />
+      {overlay === "filter" && (
+        <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
+      )}
+      {overlay === "right" && (
+        <div className="absolute inset-0 bg-gradient-to-l from-primary/30 via-primary/10 to-transparent md:from-primary/60 md:via-primary/15" />
+      )}
 
       <div className="relative flex h-full max-w-2xl flex-col justify-center px-6 sm:px-10 lg:px-16">
         <motion.div
@@ -53,7 +64,7 @@ export function PhotoPageHeader({
               {eyebrow}
             </p>
           )}
-          <h1 className="mt-3 font-display text-4xl font-bold text-navy md:text-5xl">
+          <h1 className="mt-3 font-display text-3xl font-bold text-navy sm:text-4xl md:text-5xl">
             {title}
           </h1>
           {description && (
