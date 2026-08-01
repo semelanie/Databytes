@@ -12,7 +12,7 @@ export default function ProductsPage() {
       <PageHeader
         eyebrow="Products"
         title="Product Solutions"
-        description="Ready-built platforms that can be tailored to your organization."
+        description="Ready-built platforms that can be tailored to your organization. Click a product to learn more."
       />
       <Container className="py-20">
         <div className="grid gap-6 md:grid-cols-2">
@@ -22,6 +22,7 @@ export default function ProductsPage() {
               slug={product.slug}
               title={product.title}
               summary={product.summary}
+              hook={product.hook}
               icon={<product.icon size={22} aria-hidden="true" />}
               accent={product.accent}
               badge={product.badge}
