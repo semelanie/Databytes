@@ -9,9 +9,15 @@ interface Point {
   vy: number;
 }
 
-const PARTICLE_COUNT = 60;
+// Reduced from 60 — halves the pairwise distance-check cost per frame
+// (O(n²)) without a visible difference in density.
+const PARTICLE_COUNT = 40;
 const LINK_DISTANCE = 150;
 const SPEED = 0.15;
+// Cap the canvas backing-store scale — devicePixelRatio can be 2–3 on
+// high-DPI or scaled Windows displays, which otherwise multiplies the
+// number of pixels this has to redraw every frame for no visible benefit.
+const MAX_DPR = 2;
 
 interface ParticleBackgroundProps {
   /** "dark" = white lines/dots for a dark background (default, used in Hero).
@@ -39,22 +45,15 @@ export function ParticleBackground({
     let height = 0;
     let points: Point[] = [];
     let raf = 0;
+    let paused = false;
 
     function resize() {
-      const el = canvas as HTMLCanvasElement;
-      width = el.clientWidth;
-      height = el.clientHeight;
-      el.width = width * window.devicePixelRatio;
-      el.height = height * window.devicePixelRatio;
-      const context = el.getContext("2d");
-      context?.setTransform(
-        window.devicePixelRatio,
-        0,
-        0,
-        window.devicePixelRatio,
-        0,
-        0
-      );
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
+      width = canvas!.clientWidth;
+      height = canvas!.clientHeight;
+      canvas!.width = width * dpr;
+      canvas!.height = height * dpr;
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
     function seed() {
@@ -67,7 +66,8 @@ export function ParticleBackground({
     }
 
     function step() {
-      const context = ctx as CanvasRenderingContext2D;
+      if (paused) return;
+      const context = ctx!;
       context.clearRect(0, 0, width, height);
 
       for (const p of points) {
@@ -107,19 +107,34 @@ export function ParticleBackground({
       if (!reduceMotion) raf = requestAnimationFrame(step);
     }
 
+    function handleResize() {
+      resize();
+    }
+
+    // Stop redrawing while the tab is backgrounded — avoids wasted
+    // CPU/GPU work (and the accumulated cost of that across many tabs
+    // is a common cause of general browser/compositor stutter).
+    function handleVisibility() {
+      paused = document.hidden;
+      if (!paused && !reduceMotion) {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(step);
+      }
+    }
+
     resize();
     seed();
     step();
 
-    window.addEventListener("resize", () => {
-      resize();
-    });
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibility);
 
     return () => {
       cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, []);
+  }, [variant]);
 
   return (
     <canvas
