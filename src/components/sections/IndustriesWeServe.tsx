@@ -14,7 +14,6 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
-import { MovingLines } from "@/components/sections/MovingLines";
 
 const industries = [
   { label: "Government", icon: Landmark },
@@ -32,7 +31,6 @@ export function IndustriesWeServe() {
   return (
     <section className="relative overflow-hidden bg-mist/50 py-24">
       <AmbientBlobs />
-      <MovingLines />
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

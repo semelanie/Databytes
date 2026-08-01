@@ -12,7 +12,6 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
-import { MovingLines } from "@/components/sections/MovingLines";
 
 const steps = [
   { label: "Consultation", icon: MessagesSquare },
@@ -28,7 +27,6 @@ export function OurProcess() {
   return (
     <section className="relative overflow-hidden py-24">
       <AmbientBlobs />
-      <MovingLines />
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
