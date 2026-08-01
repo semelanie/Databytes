@@ -19,7 +19,7 @@ interface PageHeaderProps {
  */
 export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   return (
-    <section className="relative overflow-hidden bg-navy py-20 text-white">
+    <section className="relative overflow-hidden bg-navy py-14 text-white sm:py-20">
       <GridGlow />
       <ParticleBackground />
       <Container className="relative">
@@ -38,7 +38,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
               </p>
             </div>
           )}
-          <h1 className="mt-3 font-display text-4xl font-bold md:text-5xl">
+          <h1 className="mt-3 font-display text-3xl font-bold sm:text-4xl md:text-5xl">
             {title}
           </h1>
           {description && (
