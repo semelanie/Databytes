@@ -111,16 +111,27 @@ export function ParticleBackground({
       resize();
     }
 
-    // Stop redrawing while the tab is backgrounded — avoids wasted
-    // CPU/GPU work (and the accumulated cost of that across many tabs
-    // is a common cause of general browser/compositor stutter).
+    let inView = true;
+
+    // Stop redrawing while the tab is backgrounded, or while this canvas
+    // has scrolled out of the viewport — both are wasted work, and on a
+    // page with several of these (every PageHeader, plus Hero) it adds up.
     function handleVisibility() {
-      paused = document.hidden;
+      paused = document.hidden || !inView;
       if (!paused && !reduceMotion) {
         cancelAnimationFrame(raf);
         raf = requestAnimationFrame(step);
       }
     }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry?.isIntersecting ?? true;
+        handleVisibility();
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(canvas);
 
     resize();
     seed();
@@ -133,6 +144,7 @@ export function ParticleBackground({
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibility);
+      observer.disconnect();
     };
   }, [variant]);
 

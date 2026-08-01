@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 const blobs = [
   { size: 340, from: "#42A8E6", to: "#1B1464", top: "5%", left: "10%", duration: 11 },
@@ -18,8 +19,15 @@ const shapes = [
 ];
 
 export function ColorMorph() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { margin: "200px", once: false });
+
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div
+      ref={ref}
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
+    >
       {blobs.map((blob, i) => (
         <motion.div
           key={i}
@@ -31,12 +39,16 @@ export function ColorMorph() {
             left: blob.left,
             background: `linear-gradient(135deg, ${blob.from}, ${blob.to})`,
           }}
-          animate={{
-            borderRadius: shapes,
-            x: [0, 30, -20, 0],
-            y: [0, -25, 20, 0],
-            scale: [1, 1.12, 0.94, 1],
-          }}
+          animate={
+            isInView
+              ? {
+                  borderRadius: shapes,
+                  x: [0, 30, -20, 0],
+                  y: [0, -25, 20, 0],
+                  scale: [1, 1.12, 0.94, 1],
+                }
+              : {}
+          }
           transition={{
             duration: blob.duration,
             repeat: Infinity,
