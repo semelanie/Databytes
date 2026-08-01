@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { PhotoPageHeader } from "@/components/layout/PhotoPageHeader";
 import { PhotoCollage } from "@/components/sections/PhotoCollage";
 import { MissionVision } from "@/components/sections/MissionVision";
 import { CoreValues } from "@/components/sections/CoreValues";
+import { CTA } from "@/components/sections/CTA";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -19,6 +19,7 @@ export default function AboutPage() {
         imageAlt="A calm, plant-filled workspace with a laptop"
         ctaLabel="Get in Touch"
         ctaHref="/contact"
+        overlay="filter"
       />
 
       <Container className="py-20">
@@ -61,19 +62,14 @@ export default function AboutPage() {
           Hover or tap a card to see what it means to us.
         </p>
         <CoreValues />
-
-        <div className="mt-16 flex flex-col items-center gap-3 rounded-card bg-mist p-10 text-center">
-          <h3 className="font-display text-xl font-bold text-navy">
-            Ready to work with a team that lives these values?
-          </h3>
-          <p className="max-w-md text-sm text-ink/60">
-            Let&apos;s talk about what your organization needs.
-          </p>
-          <Button href="/contact" className="mt-2">
-            Get in Touch
-          </Button>
-        </div>
       </Container>
+
+      <CTA
+        title="Ready to work with a team that lives these values?"
+        subtitle="Let's talk about what your organization needs."
+        buttonLabel="Get in Touch"
+        buttonHref="/contact"
+      />
     </>
   );
 }
