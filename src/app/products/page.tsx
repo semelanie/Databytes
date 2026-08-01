@@ -15,6 +15,9 @@ export default function ProductsPage() {
         description="Ready-built platforms that can be tailored to your organization. Click a product to learn more."
       />
       <Container className="py-20">
+        <p className="mb-6 text-sm text-ink/50">
+          Tap any product to expand it for details, or tap again to collapse.
+        </p>
         <div className="grid gap-6 md:grid-cols-2">
           {products.map((product) => (
             <ProductCard
