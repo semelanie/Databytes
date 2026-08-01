@@ -79,12 +79,12 @@ export function TrustedBy() {
                   key={client.name}
                   className="flex flex-col items-center gap-3"
                 >
-                  <div className="relative h-16 w-28">
+                  <div className="relative h-20 w-36">
                     <Image
                       src={client.src}
                       alt={client.name}
                       fill
-                      sizes="112px"
+                      sizes="144px"
                       className="object-contain"
                     />
                   </div>

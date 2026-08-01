@@ -33,7 +33,10 @@ export function CTA() {
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Button href="/contact" variant="secondary">
+          <Button
+            href="mailto:mgt@databytes.sc?subject=Free%20Consultation%20Request"
+            variant="secondary"
+          >
             Book a Free Consultation
           </Button>
         </motion.div>

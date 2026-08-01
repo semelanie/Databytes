@@ -61,7 +61,7 @@ export function Hero() {
               Get Started
             </Button>
             <Button
-              href="/contact"
+              href="mailto:mgt@databytes.sc?subject=Quote%20Request"
               className="bg-white/10 text-white hover:bg-white/20"
             >
               Request a Quote
