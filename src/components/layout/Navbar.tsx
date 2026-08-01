@@ -47,7 +47,7 @@ export function Navbar() {
         </nav>
 
         <div className="hidden md:block">
-          <Button href="/contact" className="!px-5 !py-2 text-sm">
+          <Button href="mailto:mgt@databytes.sc?subject=Quote%20Request" className="!px-5 !py-2 text-sm">
             Request a Quote
           </Button>
         </div>
@@ -74,7 +74,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Button href="/contact" onClick={() => setOpen(false)}>
+            <Button href="mailto:mgt@databytes.sc?subject=Quote%20Request" onClick={() => setOpen(false)}>
               Request a Quote
             </Button>
           </Container>
