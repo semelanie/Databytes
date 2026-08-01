@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Sora, Inter } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { LoadingScreen } from "@/components/layout/LoadingScreen";
 import { CustomCursor } from "@/components/layout/CustomCursor";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { AIAssistant } from "@/components/layout/AIAssistant";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { CookieConsent } from "@/components/layout/CookieConsent";
@@ -36,6 +35,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -48,7 +53,6 @@ export default function RootLayout({
         <CustomCursor />
         <Navbar />
         <main>{children}</main>
-        <WhatsAppButton />
         <AIAssistant />
         <ScrollToTop />
         <CookieConsent />
