@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { MovingLines } from "@/components/sections/MovingLines";
 
 // Logos shown here should only be added once the organization has confirmed
 // it's fine to be listed — see DATABYTES_SPEC.md §5.
@@ -55,6 +56,7 @@ export function TrustedBy() {
   return (
     <section className="relative overflow-hidden border-y border-mist bg-mist/50 py-16">
       <AmbientBlobs />
+      <MovingLines />
       <Container className="relative flex flex-col items-center">
         <div className="flex items-center gap-3">
           <span className="h-px w-8 bg-primary" />

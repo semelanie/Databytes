@@ -7,11 +7,13 @@ import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
 import { services } from "@/data/services";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { MovingLines } from "@/components/sections/MovingLines";
 
 export function ServicesPreview() {
   return (
     <section className="relative overflow-hidden py-24">
       <AmbientBlobs />
+      <MovingLines />
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -6,12 +6,14 @@ import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { products } from "@/data/products";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { MovingLines } from "@/components/sections/MovingLines";
 import { ProductCard } from "@/components/sections/ProductCard";
 
 export function ProductsPreview() {
   return (
     <section className="relative overflow-hidden bg-mist/50 py-24">
       <AmbientBlobs />
+      <MovingLines />
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

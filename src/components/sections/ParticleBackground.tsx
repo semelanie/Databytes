@@ -13,7 +13,16 @@ const PARTICLE_COUNT = 60;
 const LINK_DISTANCE = 150;
 const SPEED = 0.15;
 
-export function ParticleBackground() {
+interface ParticleBackgroundProps {
+  /** "dark" = white lines/dots for a dark background (default, used in Hero).
+   *  "light" = blue lines/navy dots for a white background, matching the
+   *  original reference image — used on the loading screen. */
+  variant?: "dark" | "light";
+}
+
+export function ParticleBackground({
+  variant = "dark",
+}: ParticleBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -75,7 +84,9 @@ export function ParticleBackground() {
           if (!a || !b) continue;
           const dist = Math.hypot(a.x - b.x, a.y - b.y);
           if (dist < LINK_DISTANCE) {
-            context.strokeStyle = `rgba(255, 255, 255, ${0.12 * (1 - dist / LINK_DISTANCE)})`;
+            const lineColor =
+              variant === "light" ? "66, 168, 230" : "255, 255, 255";
+            context.strokeStyle = `rgba(${lineColor}, ${0.16 * (1 - dist / LINK_DISTANCE)})`;
             context.lineWidth = 1;
             context.beginPath();
             context.moveTo(a.x, a.y);
@@ -86,7 +97,8 @@ export function ParticleBackground() {
       }
 
       for (const p of points) {
-        context.fillStyle = "rgba(255, 255, 255, 0.5)";
+        context.fillStyle =
+          variant === "light" ? "rgba(30, 58, 138, 0.6)" : "rgba(255, 255, 255, 0.5)";
         context.beginPath();
         context.arc(p.x, p.y, 2, 0, Math.PI * 2);
         context.fill();

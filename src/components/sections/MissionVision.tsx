@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Target, Eye } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { MovingLines } from "@/components/sections/MovingLines";
 
 const cards = [
   {
@@ -26,6 +27,7 @@ export function MissionVision() {
   return (
     <section className="relative overflow-hidden py-24">
       <AmbientBlobs />
+      <MovingLines />
       <Container className="relative grid gap-6 md:grid-cols-2">
         {cards.map((card, i) => (
           <motion.div

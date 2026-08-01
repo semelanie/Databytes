@@ -11,6 +11,8 @@ import {
   Headset,
 } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { MovingLines } from "@/components/sections/MovingLines";
 
 const steps = [
   { label: "Consultation", icon: MessagesSquare },
@@ -24,7 +26,9 @@ const steps = [
 
 export function OurProcess() {
   return (
-    <section className="py-24">
+    <section className="relative overflow-hidden py-24">
+      <AmbientBlobs />
+      <MovingLines />
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -47,8 +51,9 @@ export function OurProcess() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
+              whileHover={{ y: -4, scale: 1.02 }}
               transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="rounded-card border border-mist p-5"
+              className="cursor-default rounded-card border border-mist p-5 transition-colors duration-300 hover:border-primary hover:shadow-card"
             >
               <div className="flex items-center justify-between">
                 <span className="font-display text-2xl font-bold text-primary">

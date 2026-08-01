@@ -6,6 +6,8 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { PhotoCollage } from "@/components/sections/PhotoCollage";
+import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { MovingLines } from "@/components/sections/MovingLines";
 
 export function AboutTeaser() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -16,7 +18,9 @@ export function AboutTeaser() {
   const panelY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   return (
-    <section ref={sectionRef} className="py-24">
+    <section ref={sectionRef} className="relative overflow-hidden py-24">
+      <AmbientBlobs />
+      <MovingLines />
       <Container className="grid items-center gap-12 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
