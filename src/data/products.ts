@@ -31,7 +31,7 @@ export interface Product {
 export const products: Product[] = [
   {
     slug: "hr-management-system",
-    title: "HR Management System",
+    title: "HR Management & Admin Management System",
     summary:
       "A full employee lifecycle platform — records, leave, payroll integration, and reporting.",
     description:
@@ -203,11 +203,15 @@ export const products: Product[] = [
     badge: "SV",
   },
   {
-    slug: "shcais",
-    title: "SHCAIS",
-    summary: "Detail content pending — please confirm the full name and scope for this product.",
-    description: "Detail content pending — Phase 2.",
-    features: [],
+    slug: "shcis",
+    title: "SHCIS - Database and Staff/Client Resources",
+    summary: "A database platform for managing staff and client resource records.",
+    description:
+      "SHCIS centralizes staff and client resource records into a single database — built as a foundation for tracking, searching, and managing that information reliably.",
+    features: [
+      "Centralized staff and client records",
+      "Searchable database",
+    ],
     icon: Database,
     accent: "#64748B",
     badge: "SH",

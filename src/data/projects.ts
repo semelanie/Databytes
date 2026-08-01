@@ -1,4 +1,4 @@
-export type ProjectCategory = "Government" | "Education" | "NGOs & Community" | "Private Sector";
+export type ProjectCategory = "Government" | "Institutional" | "Private";
 
 export interface Project {
   slug: string;
@@ -90,7 +90,7 @@ export const projects: Project[] = [
   {
     slug: "sqa-network-infrastructure",
     title: "SQA Network & Infrastructure",
-    category: "Education",
+    category: "Institutional",
     client: "Seychelles Qualifications Authority",
     summary: "Network design and core infrastructure support, from cabling through to server administration.",
     delivery: [
@@ -106,7 +106,7 @@ export const projects: Project[] = [
   {
     slug: "nihss-room-booking",
     title: "NIHSS Room Booking Platform",
-    category: "Education",
+    category: "Institutional",
     client: "National Institute of Health and Social Studies",
     summary:
       "A live booking system for classrooms, meeting rooms, and shared facilities — replacing manual scheduling with a real calendar and approval workflow.",
@@ -122,7 +122,7 @@ export const projects: Project[] = [
   {
     slug: "nihss-driver-booking",
     title: "NIHSS Driver Booking System",
-    category: "Education",
+    category: "Institutional",
     client: "National Institute of Health and Social Studies",
     summary:
       "Replaced a paper-based driver scheduling process with a digital platform covering permissions, rescheduling, and a full audit trail.",
@@ -138,7 +138,7 @@ export const projects: Project[] = [
   {
     slug: "nihss-it-support",
     title: "NIHSS IT Support & Systems",
-    category: "Education",
+    category: "Institutional",
     client: "National Institute of Health and Social Studies",
     summary:
       "Ongoing IT support and Time Attendance, alongside software development spanning Room, Staff, Driver, and Student systems.",
@@ -153,7 +153,7 @@ export const projects: Project[] = [
   {
     slug: "round-table-seychelles",
     title: "Round Table Seychelles Website",
-    category: "NGOs & Community",
+    category: "Institutional",
     client: "Round Table Seychelles",
     summary:
       "A full migration from a third-party platform to a self-hosted stack, with a member directory and a history of past projects and events.",
@@ -168,7 +168,7 @@ export const projects: Project[] = [
   {
     slug: "foodpro",
     title: "FoodPro IT Support",
-    category: "Private Sector",
+    category: "Private",
     client: "FoodPro",
     summary: "Ongoing IT and software support, covering time attendance, CCTV, and network infrastructure.",
     delivery: [
@@ -185,7 +185,7 @@ export const projects: Project[] = [
   {
     slug: "vertex-hrm",
     title: "Vertex HRM",
-    category: "Private Sector",
+    category: "Private",
     client: "Enterprise client",
     summary:
       "A complete enterprise HR management system spanning 14 modules — from leave and time tracking to recruitment, performance, and claims.",
@@ -201,7 +201,7 @@ export const projects: Project[] = [
   {
     slug: "dna-holdings",
     title: "DNA Holdings Corporate Website",
-    category: "Private Sector",
+    category: "Private",
     client: "DNA Holdings",
     summary:
       "A corporate showcase site for a holding company overseeing four subsidiaries, built as the first phase of a two-phase rollout strategy.",
