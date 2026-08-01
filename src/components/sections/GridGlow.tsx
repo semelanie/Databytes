@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 /**
  * A subtle animated circuit/grid backdrop with pulsing glow nodes — the
@@ -13,6 +14,7 @@ import { motion, useInView } from "framer-motion";
 export function GridGlow() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { margin: "200px", once: false });
+  const isMobile = useIsMobile();
 
   return (
     <div
@@ -28,16 +30,20 @@ export function GridGlow() {
           backgroundSize: "40px 40px",
         }}
       />
-      <motion.div
-        animate={isInView ? { opacity: [0.25, 0.5, 0.25] } : {}}
-        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl"
-      />
-      <motion.div
-        animate={isInView ? { opacity: [0.4, 0.2, 0.4] } : {}}
-        transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-        className="absolute -right-16 bottom-0 h-64 w-64 rounded-full bg-deep/40 blur-3xl"
-      />
+      {!isMobile && (
+        <>
+          <motion.div
+            animate={isInView ? { opacity: [0.25, 0.5, 0.25] } : {}}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -left-20 -top-20 h-72 w-72 rounded-full bg-primary/30 blur-3xl"
+          />
+          <motion.div
+            animate={isInView ? { opacity: [0.4, 0.2, 0.4] } : {}}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute -right-16 bottom-0 h-64 w-64 rounded-full bg-deep/40 blur-3xl"
+          />
+        </>
+      )}
     </div>
   );
 }

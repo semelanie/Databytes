@@ -37,6 +37,14 @@ export function ParticleBackground({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    // Skip entirely on mobile/touch — this is the most GPU-intensive
+    // decorative layer on the site (a canvas redrawn every frame), and
+    // phone GPUs handle that far worse than desktop.
+    const isMobile = window.matchMedia(
+      "(max-width: 767px), (pointer: coarse)"
+    ).matches;
+    if (isMobile) return;
+
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;

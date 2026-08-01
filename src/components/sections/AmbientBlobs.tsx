@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 /**
  * Soft, slow-drifting gradient blobs for otherwise-plain white/light
@@ -17,6 +18,9 @@ import { motion, useInView } from "framer-motion";
 export function AmbientBlobs() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { margin: "200px", once: false });
+  const isMobile = useIsMobile();
+
+  if (isMobile) return null;
 
   return (
     <div

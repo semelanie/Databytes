@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 // Each line animates between a few endpoint positions, cycling smoothly
 // back and forth — fine, subtle crossing strokes (no dots/nodes), using the
@@ -55,6 +56,9 @@ const lines = [
 ];
 
 export function MovingLines() {
+  const isMobile = useIsMobile();
+  if (isMobile) return null;
+
   return (
     <svg
       aria-hidden="true"

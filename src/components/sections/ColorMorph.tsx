@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useIsMobile } from "@/lib/useIsMobile";
 
 const blobs = [
   { size: 340, from: "#42A8E6", to: "#1B1464", top: "5%", left: "10%", duration: 11 },
@@ -21,6 +22,9 @@ const shapes = [
 export function ColorMorph() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { margin: "200px", once: false });
+  const isMobile = useIsMobile();
+
+  if (isMobile) return null;
 
   return (
     <div
