@@ -21,6 +21,11 @@ export interface Product {
   description: string;
   features: string[];
   icon: LucideIcon;
+  accent: string;
+  /** Short monogram used as a stand-in "platform logo" badge on the card,
+      since these are in-house Databytes products rather than third-party
+      platforms with their own brand marks. */
+  badge: string;
 }
 
 export const products: Product[] = [
@@ -30,22 +35,34 @@ export const products: Product[] = [
     summary:
       "A full employee lifecycle platform — records, leave, payroll integration, and reporting.",
     description:
-      "A modular HR system covering onboarding, leave management, employee records, and reporting, built with role-based access so different teams see only what they need.",
+      "A modular HR system covering the full employee lifecycle: onboarding, leave management, employee records, and reporting. Built with role-based access so HR, managers, and staff each see exactly what's relevant to them — nothing more, nothing less. Designed to scale from a handful of employees to a full organization without re-architecting.",
     features: [
       "Employee records & document storage",
-      "Leave requests & approvals",
-      "Role-based dashboards",
-      "Reporting & audit trail",
+      "Leave requests & approvals with manager sign-off",
+      "Role-based dashboards for HR, managers, and staff",
+      "Payroll-system integration groundwork",
+      "Reporting & full audit trail",
     ],
     icon: Users,
+    accent: "#42A8E6",
+    badge: "HR",
   },
   {
     slug: "digital-archive-management",
     title: "Digital Archive Management",
     summary: "Searchable, secure digital records for institutions.",
-    description: "Detail content pending — Phase 2.",
-    features: [],
+    description:
+      "A digital archive for institutions that need to store, organize, and retrieve official records reliably — replacing filing cabinets and loose folder structures with a searchable, permissioned system. Documents are indexed by category, date, and custodian so retrieval takes seconds instead of a search through physical archives.",
+    features: [
+      "Full-text and metadata search across archived documents",
+      "Category and department-based organization",
+      "Role-based access to sensitive or restricted records",
+      "Version history for updated documents",
+      "Retention and audit logging",
+    ],
     icon: Archive,
+    accent: "#8B5CF6",
+    badge: "DA",
   },
   {
     slug: "ticketing-system",
@@ -60,6 +77,8 @@ export const products: Product[] = [
       "Reporting on response and resolution times",
     ],
     icon: Ticket,
+    accent: "#F59E0B",
+    badge: "TK",
   },
   {
     slug: "visitor-management",
@@ -68,6 +87,8 @@ export const products: Product[] = [
     description: "Detail content pending — Phase 2.",
     features: [],
     icon: UserCheck,
+    accent: "#14B8A6",
+    badge: "VM",
   },
   {
     slug: "fixed-assets",
@@ -82,6 +103,8 @@ export const products: Product[] = [
       "Audit-ready reporting",
     ],
     icon: Package,
+    accent: "#1E3A8A",
+    badge: "FA",
   },
   {
     slug: "room-booking",
@@ -96,6 +119,8 @@ export const products: Product[] = [
       "Booking history and usage reporting",
     ],
     icon: DoorOpen,
+    accent: "#EC4899",
+    badge: "RB",
   },
   {
     slug: "driver-booking",
@@ -110,6 +135,8 @@ export const products: Product[] = [
       "Full activity audit trail",
     ],
     icon: Car,
+    accent: "#F97316",
+    badge: "DB",
   },
   {
     slug: "file-server-gui",
@@ -124,6 +151,8 @@ export const products: Product[] = [
       "Activity log for file access and changes",
     ],
     icon: FolderOpen,
+    accent: "#06B6D4",
+    badge: "FS",
   },
   {
     slug: "network-audit",
@@ -138,6 +167,8 @@ export const products: Product[] = [
       "Exportable reports for compliance",
     ],
     icon: Network,
+    accent: "#EF4444",
+    badge: "NA",
   },
   {
     slug: "website-building",
@@ -152,6 +183,8 @@ export const products: Product[] = [
       "Scales from a simple site to a full application",
     ],
     icon: Globe,
+    accent: "#22C55E",
+    badge: "WB",
   },
   {
     slug: "secure-vault",
@@ -166,6 +199,8 @@ export const products: Product[] = [
       "Secure sharing without emailing attachments",
     ],
     icon: Lock,
+    accent: "#6366F1",
+    badge: "SV",
   },
   {
     slug: "shcais",
@@ -174,5 +209,7 @@ export const products: Product[] = [
     description: "Detail content pending — Phase 2.",
     features: [],
     icon: Database,
+    accent: "#64748B",
+    badge: "SH",
   },
 ];

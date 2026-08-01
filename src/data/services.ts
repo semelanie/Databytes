@@ -1,9 +1,21 @@
+import {
+  Globe,
+  Code2,
+  Smartphone,
+  Network,
+  Server,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
+
 export interface Service {
   slug: string;
   title: string;
   summary: string;
   description: string;
   benefits: string[];
+  icon: LucideIcon;
+  accent: string;
 }
 
 // Phase 1 ships full detail content for the first entry; the rest are index-only
@@ -21,6 +33,8 @@ export const services: Service[] = [
       "SEO groundwork included from day one",
       "Architecture ready to scale into full applications",
     ],
+    icon: Globe,
+    accent: "#42A8E6",
   },
   {
     slug: "custom-software-development",
@@ -28,6 +42,8 @@ export const services: Service[] = [
     summary: "Bespoke internal tools and business applications.",
     description: "Detail content pending — Phase 2.",
     benefits: [],
+    icon: Code2,
+    accent: "#8B5CF6",
   },
   {
     slug: "mobile-applications",
@@ -35,6 +51,8 @@ export const services: Service[] = [
     summary: "iOS and Android apps for staff and customer-facing use cases.",
     description: "Detail content pending — Phase 2.",
     benefits: [],
+    icon: Smartphone,
+    accent: "#14B8A6",
   },
   {
     slug: "network-installation-support",
@@ -42,6 +60,8 @@ export const services: Service[] = [
     summary: "Structured cabling, Wi-Fi, and network maintenance.",
     description: "Detail content pending — Phase 2.",
     benefits: [],
+    icon: Network,
+    accent: "#F59E0B",
   },
   {
     slug: "managed-it-services",
@@ -49,6 +69,8 @@ export const services: Service[] = [
     summary: "Ongoing IT operations support so teams can focus on their work.",
     description: "Detail content pending — Phase 2.",
     benefits: [],
+    icon: Server,
+    accent: "#1E3A8A",
   },
   {
     slug: "cybersecurity",
@@ -56,5 +78,7 @@ export const services: Service[] = [
     summary: "Assessments, hardening, and monitoring for organizations of any size.",
     description: "Detail content pending — Phase 2.",
     benefits: [],
+    icon: ShieldCheck,
+    accent: "#EC4899",
   },
 ];
