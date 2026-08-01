@@ -1,18 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { CircuitTrace } from "@/components/layout/CircuitTrace";
 
 export function LoadingScreen() {
+  const pathname = usePathname();
   const [loading, setLoading] = useState(true);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-    // Minimum display time so the animation isn't a flash on fast
-    // connections, capped so it never blocks real usage for long.
-    const timer = setTimeout(() => setLoading(false), 900);
+    // Longer on first load (initial assets/fonts), shorter on subsequent
+    // in-app navigations.
+    const duration = isFirstRender.current ? 1700 : 1300;
+    isFirstRender.current = false;
+
+    setLoading(true);
+    const timer = setTimeout(() => setLoading(false), duration);
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
   return (
     <AnimatePresence>
@@ -21,32 +29,22 @@ export function LoadingScreen() {
           key="loading-screen"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-navy"
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-white"
           aria-hidden="true"
         >
-          <motion.div
-            initial={{ scale: 0.85, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="flex flex-col items-center gap-4"
-          >
+          <div className="relative flex items-center justify-center">
+            <CircuitTrace />
+            {/* Logo fades in at the center once the traces have landed */}
             <motion.div
-              animate={{ scale: [1, 1.06, 1] }}
-              transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-              className="relative h-16 w-16 overflow-hidden rounded-2xl"
+              initial={{ opacity: 0, scale: 0.6 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4, delay: 0.9 }}
+              className="absolute h-11 w-11 overflow-hidden rounded-xl shadow-card"
             >
-              <Image src="/logo.jpg" alt="" fill sizes="64px" className="object-cover" />
+              <Image src="/logo.jpg" alt="" fill sizes="44px" className="object-cover" />
             </motion.div>
-            <div className="h-0.5 w-24 overflow-hidden rounded-full bg-white/10">
-              <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: "100%" }}
-                transition={{ duration: 0.9, repeat: Infinity, ease: "easeInOut" }}
-                className="h-full w-full bg-primary"
-              />
-            </div>
-          </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
