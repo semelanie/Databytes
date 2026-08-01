@@ -1,23 +1,36 @@
 "use client";
 
 import { motion } from "framer-motion";
+import {
+  Landmark,
+  GraduationCap,
+  HeartPulse,
+  ShoppingBag,
+  Hotel,
+  Banknote,
+  HandHeart,
+  Store,
+  Building2,
+} from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
 
 const industries = [
-  "Government",
-  "Education",
-  "Healthcare",
-  "Retail",
-  "Hospitality",
-  "Finance",
-  "NGOs",
-  "Small Businesses",
-  "Large Enterprises",
+  { label: "Government", icon: Landmark },
+  { label: "Education", icon: GraduationCap },
+  { label: "Healthcare", icon: HeartPulse },
+  { label: "Retail", icon: ShoppingBag },
+  { label: "Hospitality", icon: Hotel },
+  { label: "Finance", icon: Banknote },
+  { label: "NGOs", icon: HandHeart },
+  { label: "Small Businesses", icon: Store },
+  { label: "Large Enterprises", icon: Building2 },
 ];
 
 export function IndustriesWeServe() {
   return (
-    <section className="bg-mist/50 py-24">
+    <section className="relative overflow-hidden bg-mist/50 py-24">
+      <AmbientBlobs />
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,18 +47,28 @@ export function IndustriesWeServe() {
           </h2>
         </motion.div>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {industries.map((industry, i) => (
-            <motion.span
-              key={industry}
-              initial={{ opacity: 0, y: 10 }}
+            <motion.div
+              key={industry.label}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-60px" }}
+              whileHover={{ y: -4 }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
-              className="rounded-full border border-mist bg-white px-5 py-2 text-sm font-medium text-ink"
+              className="group flex cursor-default flex-col items-center gap-2 rounded-card border border-mist bg-white px-4 py-6 text-center transition-all duration-300 hover:border-primary hover:bg-primary hover:shadow-card-hover"
             >
-              {industry}
-            </motion.span>
+              <motion.span
+                whileHover={{ rotate: [0, -10, 10, -6, 0], scale: 1.15 }}
+                transition={{ duration: 0.5 }}
+                className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-white/20 group-hover:text-white"
+              >
+                <industry.icon size={20} aria-hidden="true" />
+              </motion.span>
+              <span className="text-sm font-medium text-ink transition-colors duration-300 group-hover:text-white">
+                {industry.label}
+              </span>
+            </motion.div>
           ))}
         </div>
       </Container>

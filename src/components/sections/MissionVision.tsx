@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Target, Eye } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
 
 const cards = [
   {
@@ -10,26 +11,29 @@ const cards = [
     title: "Our Mission",
     quote:
       "To empower organizations through innovative, secure, and reliable technology solutions that simplify business operations and accelerate digital transformation.",
+    fromX: -60,
   },
   {
     icon: Eye,
     title: "Our Vision",
     quote:
       "To become Seychelles' leading technology solutions provider, recognized for innovation, quality, professionalism, and exceptional customer service.",
+    fromX: 60,
   },
 ];
 
 export function MissionVision() {
   return (
-    <section className="py-24">
-      <Container className="grid gap-6 md:grid-cols-2">
+    <section className="relative overflow-hidden py-24">
+      <AmbientBlobs />
+      <Container className="relative grid gap-6 md:grid-cols-2">
         {cards.map((card, i) => (
           <motion.div
             key={card.title}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: i * 0.15 }}
+            initial={{ opacity: 0, x: card.fromX }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
             className="rounded-card bg-primary px-8 py-12 text-center text-white"
           >
             <card.icon

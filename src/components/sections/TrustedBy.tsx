@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause } from "lucide-react";
@@ -18,9 +18,20 @@ const clients = [
   { name: "Attorney General's Office", src: "/client-ag.webp" },
 ];
 
+const PER_SLIDE = 3;
 const SLIDE_SECONDS = 4;
 
 export function TrustedBy() {
+  // Group clients into fixed-size slides so every slide shows the same
+  // number of logos, all rendered with identical sizing/treatment.
+  const slides = useMemo(() => {
+    const groups: (typeof clients)[] = [];
+    for (let i = 0; i < clients.length; i += PER_SLIDE) {
+      groups.push(clients.slice(i, i + PER_SLIDE));
+    }
+    return groups;
+  }, []);
+
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [cycle, setCycle] = useState(0);
@@ -33,13 +44,13 @@ export function TrustedBy() {
   useEffect(() => {
     if (!playing) return;
     const timer = setTimeout(() => {
-      setIndex((i) => (i + 1) % clients.length);
+      setIndex((i) => (i + 1) % slides.length);
       setCycle((c) => c + 1);
     }, SLIDE_SECONDS * 1000);
     return () => clearTimeout(timer);
-  }, [index, playing]);
+  }, [index, playing, slides.length]);
 
-  const client = clients[index]!;
+  const slide = slides[index] ?? [];
 
   return (
     <section className="relative overflow-hidden border-y border-mist bg-mist/50 py-16">
@@ -53,41 +64,48 @@ export function TrustedBy() {
           <span className="h-px w-8 bg-primary" />
         </div>
 
-        <div className="relative mt-10 flex h-28 w-full max-w-xs items-center justify-center">
+        <div className="relative mt-10 flex min-h-28 w-full max-w-2xl items-center justify-center">
           <AnimatePresence mode="wait">
             <motion.div
-              key={client.name}
+              key={index}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.4 }}
-              className="flex flex-col items-center gap-3"
+              className="flex flex-wrap items-center justify-center gap-10"
             >
-              <div className="relative h-16 w-28">
-                <Image
-                  src={client.src}
-                  alt={client.name}
-                  fill
-                  sizes="112px"
-                  className="object-contain"
-                />
-              </div>
-              <p className="text-center text-xs font-medium text-ink/60">
-                {client.name}
-              </p>
+              {slide.map((client) => (
+                <div
+                  key={client.name}
+                  className="flex flex-col items-center gap-3"
+                >
+                  <div className="relative h-16 w-28">
+                    <Image
+                      src={client.src}
+                      alt={client.name}
+                      fill
+                      sizes="112px"
+                      className="object-contain"
+                    />
+                  </div>
+                  <p className="text-center text-xs font-medium text-ink/60">
+                    {client.name}
+                  </p>
+                </div>
+              ))}
             </motion.div>
           </AnimatePresence>
         </div>
 
         {/* Dot navigation + progress bar + play/pause, matching a familiar
-            product-carousel control cluster. */}
+            product-carousel control cluster — one dot per slide, not per logo. */}
         <div className="mt-8 flex items-center gap-4">
           <div className="flex items-center gap-2">
-            {clients.map((c, i) => (
+            {slides.map((_, i) => (
               <button
-                key={c.name}
+                key={i}
                 onClick={() => goTo(i)}
-                aria-label={`Show ${c.name}`}
+                aria-label={`Show partner group ${i + 1}`}
                 aria-current={i === index}
                 className={`h-2 w-2 rounded-full transition-colors duration-200 ${
                   i === index ? "bg-primary" : "bg-mist hover:bg-primary/40"

@@ -4,15 +4,16 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Cloud, Server, ShieldCheck, Cpu, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { Container } from "@/components/ui/Container";
 import { ParticleBackground } from "@/components/sections/ParticleBackground";
 import { ColorMorph } from "@/components/sections/ColorMorph";
 
 const floatingIcons = [
-  { Icon: Cloud, top: "18%", left: "20%", delay: 0 },
-  { Icon: Server, top: "55%", left: "12%", delay: 0.6 },
-  { Icon: ShieldCheck, top: "30%", left: "68%", delay: 1.1 },
-  { Icon: Cpu, top: "68%", left: "60%", delay: 0.3 },
-  { Icon: BarChart3, top: "12%", left: "55%", delay: 0.9 },
+  { Icon: Cloud, top: "10%", left: "60%", delay: 0 },
+  { Icon: Server, top: "55%", left: "52%", delay: 0.6 },
+  { Icon: ShieldCheck, top: "25%", left: "85%", delay: 1.1 },
+  { Icon: Cpu, top: "70%", left: "80%", delay: 0.3 },
+  { Icon: BarChart3, top: "5%", left: "78%", delay: 0.9 },
 ];
 
 export function Hero() {
@@ -21,68 +22,66 @@ export function Hero() {
     target: sectionRef,
     offset: ["start start", "end start"],
   });
-  // As the Hero scrolls up out of view, the visual panel slides up faster
-  // than the page scroll — a true scroll-linked parallax, not a one-time trigger.
-  const panelY = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const iconsY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-navy text-white">
-      <div className="grid md:grid-cols-2">
-        {/* Left: copy, with a slow-drifting particle network behind it */}
-        <div className="relative overflow-hidden px-6 py-24 sm:px-10 md:py-32 lg:px-16">
-          <ParticleBackground />
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="relative"
-          >
-            <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-              Databytes Pty Ltd
-            </p>
-            <h1 className="mt-3 font-display text-4xl font-bold leading-tight md:text-5xl">
-              Empowering{" "}
-              <span className="text-primary">Businesses</span> Through
-              Smart Technology
-            </h1>
-            <p className="mt-6 max-w-md text-lg text-white/75">
-              Helping businesses and government organizations across
-              Seychelles succeed through innovative IT solutions.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <Button href="/services" variant="secondary">
-                Get Started
-              </Button>
-              <Button
-                href="/contact"
-                className="bg-white/10 text-white hover:bg-white/20"
-              >
-                Request a Quote
-              </Button>
-            </div>
-          </motion.div>
-        </div>
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-navy text-white"
+    >
+      {/* One continuous background shared by the whole hero — no hard seam
+          between a "text half" and a "visual half" anymore. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-brand-gradient opacity-50"
+      />
+      <ParticleBackground />
+      <ColorMorph />
 
-        {/* Right: full-bleed animated tech visual, edge to edge like a hero photo */}
+      <Container className="relative py-24 md:py-32">
         <motion.div
-          style={{ y: panelY }}
-          className="relative min-h-[360px] overflow-hidden bg-gradient-to-br from-deep via-navy to-navy md:min-h-full"
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative max-w-xl"
         >
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-brand-gradient opacity-60"
-          />
-          <ColorMorph />
+          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
+            Databytes Pty Ltd
+          </p>
+          <h1 className="mt-3 font-display text-4xl font-bold leading-tight md:text-5xl">
+            Empowering <span className="text-primary">Businesses</span>{" "}
+            Through Smart Technology
+          </h1>
+          <p className="mt-6 max-w-md text-lg text-white/75">
+            Helping businesses and government organizations across
+            Seychelles succeed through innovative IT solutions.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Button href="/services" variant="secondary">
+              Get Started
+            </Button>
+            <Button
+              href="/contact"
+              className="bg-white/10 text-white hover:bg-white/20"
+            >
+              Request a Quote
+            </Button>
+          </div>
+        </motion.div>
+
+        {/* Floating icons drift across the same shared background, over on
+            the right, rather than sitting in a visually separate box. */}
+        <motion.div
+          style={{ y: iconsY }}
+          className="pointer-events-none absolute inset-0 hidden md:block"
+        >
           {floatingIcons.map(({ Icon, top, left, delay }, i) => (
             <motion.div
               key={i}
               className="absolute flex h-16 w-16 items-center justify-center rounded-2xl bg-white/10 backdrop-blur"
               style={{ top, left }}
               initial={{ opacity: 0 }}
-              animate={{
-                opacity: 1,
-                y: [0, -16, 0],
-              }}
+              animate={{ opacity: 1, y: [0, -16, 0] }}
               transition={{
                 opacity: { duration: 0.6, delay },
                 y: {
@@ -97,7 +96,7 @@ export function Hero() {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </Container>
 
       {/* Curved white divider into the next section */}
       <div

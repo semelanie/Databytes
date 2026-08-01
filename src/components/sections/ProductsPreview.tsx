@@ -1,14 +1,25 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
 import { products } from "@/data/products";
+import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
+import { ProductCard } from "@/components/sections/ProductCard";
 
 export function ProductsPreview() {
   return (
-    <section className="bg-mist/50 py-24">
+    <section className="relative overflow-hidden bg-mist/50 py-24">
+      <AmbientBlobs />
       <Container>
-        <div className="flex items-end justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="flex items-end justify-between gap-4"
+        >
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-primary">
               Ready-built platforms
@@ -23,18 +34,26 @@ export function ProductsPreview() {
           >
             View all products <ArrowRight size={16} />
           </Link>
-        </div>
+        </motion.div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
-          {products.slice(0, 2).map((product) => (
-            <Link key={product.slug} href={`/products/${product.slug}`}>
-              <Card className="h-full">
-                <h3 className="font-display text-lg font-semibold text-navy">
-                  {product.title}
-                </h3>
-                <p className="mt-2 text-sm text-ink/70">{product.summary}</p>
-              </Card>
-            </Link>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {products.slice(0, 3).map((product, i) => (
+            <motion.div
+              key={product.slug}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <ProductCard
+                slug={product.slug}
+                title={product.title}
+                summary={product.summary}
+                icon={<product.icon size={22} aria-hidden="true" />}
+                accent={product.accent}
+                badge={product.badge}
+              />
+            </motion.div>
           ))}
         </div>
       </Container>
