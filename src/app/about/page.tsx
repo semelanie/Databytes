@@ -5,17 +5,28 @@ import { PhotoCollage } from "@/components/sections/PhotoCollage";
 import { MissionVision } from "@/components/sections/MissionVision";
 import { CoreValues } from "@/components/sections/CoreValues";
 import { CTA } from "@/components/sections/CTA";
+import { cms } from "@/lib/cms";
+
+// Always render fresh — this page reads CMS content that admins
+// can edit at any time, so it must not be statically cached.
+export const dynamic = "force-dynamic";
+
 
 export const metadata: Metadata = { title: "About" };
 
-export default function AboutPage() {
+const DEFAULT_BANNER =
+  "https://images.unsplash.com/photo-1752224543110-35faed040b91?w=1600&q=80&auto=format&fit=crop";
+
+export default async function AboutPage() {
+  const content = await cms.getSiteContent();
+
   return (
     <>
       <PhotoPageHeader
         eyebrow="About"
         title="About Us"
         description="Innovating today. Empowering tomorrow — Databytes Pty Ltd."
-        image="https://images.unsplash.com/photo-1752224543110-35faed040b91?w=1600&q=80&auto=format&fit=crop"
+        image={content.about_banner_image || DEFAULT_BANNER}
         imageAlt="A calm, plant-filled workspace with a laptop"
         ctaLabel="Get in Touch"
         ctaHref="/contact"
@@ -32,13 +43,11 @@ export default function AboutPage() {
         <div className="mt-6 grid items-center gap-12 md:grid-cols-2">
           <div>
             <h2 className="font-display text-2xl font-bold text-navy">
-              Sustainable Technology &amp; Digital Transformation
+              {content.about_intro_title || "Sustainable Technology & Digital Transformation"}
             </h2>
             <p className="mt-4 text-ink/70">
-              Databytes Pty Ltd delivers innovative, secure, and reliable
-              technology solutions that empower organizations across
-              Seychelles to embrace digital transformation — combining
-              local support with global standards.
+              {content.about_intro_text ||
+                "Databytes Pty Ltd delivers innovative, secure, and reliable technology solutions that empower organizations across Seychelles to embrace digital transformation — combining local support with global standards."}
             </p>
           </div>
           <PhotoCollage />

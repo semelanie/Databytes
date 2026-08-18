@@ -7,13 +7,19 @@ import { Play, Pause } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
 
-// Logos shown here should only be added once the organization has confirmed
-// it's fine to be listed — see DATABYTES_SPEC.md §5.
-const clients = [
+interface ClientLogo {
+  name: string;
+  src: string;
+  wide?: boolean;
+}
+
+// Fallback if the CMS table is empty or unreachable — same logos that
+// were previously hardcoded here.
+const FALLBACK_CLIENTS: ClientLogo[] = [
   { name: "Seyviour", src: "/client-seyviour.png" },
   { name: "Seychelles Qualifications Authority", src: "/client-sqa.png" },
   { name: "National Institute of Health and Social Studies", src: "/client-nihss.jpeg" },
-  { name: "Round Table Seychelles", src: "/client-rts.png" },
+  { name: "Round Table Seychelles", src: "/client-rts.png", wide: true },
   { name: "Seychelles Law Commission", src: "/client-lawcommission.png" },
   { name: "Attorney General's Office", src: "/client-ag.webp" },
 ];
@@ -21,7 +27,11 @@ const clients = [
 const PER_SLIDE = 3;
 const SLIDE_SECONDS = 4;
 
-export function TrustedBy() {
+interface TrustedByProps {
+  clients?: ClientLogo[];
+}
+
+export function TrustedBy({ clients = FALLBACK_CLIENTS }: TrustedByProps) {
   // Group clients into fixed-size slides so every slide shows the same
   // number of logos, all rendered with identical sizing/treatment.
   const slides = useMemo(() => {
@@ -30,7 +40,7 @@ export function TrustedBy() {
       groups.push(clients.slice(i, i + PER_SLIDE));
     }
     return groups;
-  }, []);
+  }, [clients]);
 
   const [index, setIndex] = useState(0);
   const [playing, setPlaying] = useState(true);
@@ -79,12 +89,18 @@ export function TrustedBy() {
                   key={client.name}
                   className="flex flex-col items-center gap-3"
                 >
-                  <div className="relative h-14 w-24 sm:h-20 sm:w-36">
+                  <div
+                    className={
+                      client.wide
+                        ? "relative h-12 w-32 sm:h-16 sm:w-48"
+                        : "relative h-14 w-24 sm:h-20 sm:w-36"
+                    }
+                  >
                     <Image
                       src={client.src}
                       alt={client.name}
                       fill
-                      sizes="144px"
+                      sizes="192px"
                       className="object-contain"
                     />
                   </div>

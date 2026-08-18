@@ -4,7 +4,18 @@ import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Landmark, Building, Building2 } from "lucide-react";
-import { projects, type ProjectCategory } from "@/data/projects";
+import { projects as staticProjects, type ProjectCategory } from "@/data/projects";
+
+export interface PortfolioItem {
+  slug: string;
+  title: string;
+  category: ProjectCategory;
+  client: string;
+  summary: string;
+  delivery: string[];
+  techStack: string[];
+  image: string;
+}
 
 const categories: { label: ProjectCategory | "All"; icon?: typeof Landmark }[] = [
   { label: "All" },
@@ -13,7 +24,11 @@ const categories: { label: ProjectCategory | "All"; icon?: typeof Landmark }[] =
   { label: "Private", icon: Building2 },
 ];
 
-export function PortfolioGrid() {
+interface PortfolioGridProps {
+  projects?: PortfolioItem[];
+}
+
+export function PortfolioGrid({ projects = staticProjects }: PortfolioGridProps) {
   const [active, setActive] = useState<ProjectCategory | "All">("All");
 
   const visible =

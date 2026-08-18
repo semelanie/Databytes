@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Phone, Mail, Facebook, Instagram, Linkedin } from "lucide-react";
 import { Container } from "@/components/ui/Container";
+import { cms } from "@/lib/cms";
 
 const columns = [
   {
@@ -27,7 +28,13 @@ const socials = [
   { icon: Linkedin, label: "LinkedIn", href: "#" },
 ];
 
-export function Footer() {
+export async function Footer() {
+  const content = await cms.getSiteContent();
+  const logoUrl = content.logo_url || "/logo.jpg";
+  const blurb =
+    content.footer_blurb ||
+    "Innovating today. Empowering tomorrow. IT solutions for organizations across Seychelles.";
+
   return (
     <footer className="relative bg-navy text-white">
       {/* Curved top divider, flowing down from the white section above */}
@@ -48,7 +55,7 @@ export function Footer() {
         <div>
           <div className="flex items-center gap-2">
             <Image
-              src="/logo.jpg"
+              src={logoUrl}
               alt="Databytes"
               width={28}
               height={28}
@@ -56,10 +63,7 @@ export function Footer() {
             />
             <p className="font-display text-lg font-bold">Databytes</p>
           </div>
-          <p className="mt-3 max-w-xs text-sm text-white/70">
-            Innovating today. Empowering tomorrow. IT solutions for
-            organizations across Seychelles.
-          </p>
+          <p className="mt-3 max-w-xs text-sm text-white/70">{blurb}</p>
 
           <div className="mt-5 flex gap-3">
             {socials.map(({ icon: Icon, label, href }) => (

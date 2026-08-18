@@ -4,9 +4,13 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, MessageCircle, Mail, ArrowLeft } from "lucide-react";
-import { faqs } from "@/data/faq";
+import { faqs as staticFaqs, type FAQItem } from "@/data/faq";
 
-export function AIAssistant() {
+interface AIAssistantProps {
+  faqs?: FAQItem[];
+}
+
+export function AIAssistant({ faqs = staticFaqs }: AIAssistantProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<number | null>(null);
 

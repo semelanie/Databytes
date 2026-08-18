@@ -7,6 +7,7 @@ import { CustomCursor } from "@/components/layout/CustomCursor";
 import { AIAssistant } from "@/components/layout/AIAssistant";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 import { CookieConsent } from "@/components/layout/CookieConsent";
+import { cms } from "@/lib/cms";
 import "@/styles/globals.css";
 
 const sora = Sora({
@@ -41,11 +42,21 @@ export const viewport: Viewport = {
   maximumScale: 5,
 };
 
-export default function RootLayout({
+// Always render fresh — Footer and the AI assistant both read CMS content
+// that admins can edit at any time.
+export const dynamic = "force-dynamic";
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const cmsFaqs = await cms.getFaqs();
+  const faqs =
+    cmsFaqs.length > 0
+      ? cmsFaqs.map((f) => ({ q: f.question, a: f.answer }))
+      : undefined; // AIAssistant falls back to the static list itself
+
   return (
     <html lang="en" className={`${sora.variable} ${inter.variable}`}>
       <body className="font-body">
@@ -53,7 +64,7 @@ export default function RootLayout({
         <CustomCursor />
         <Navbar />
         <main>{children}</main>
-        <AIAssistant />
+        <AIAssistant faqs={faqs} />
         <ScrollToTop />
         <CookieConsent />
         <Footer />

@@ -2,13 +2,34 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Card } from "@/components/ui/Card";
-import { services } from "@/data/services";
+import { services as staticServices } from "@/data/services";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
 
-export function ServicesPreview() {
+interface PreviewItem {
+  slug: string;
+  title: string;
+  summary: string;
+  accent: string;
+  icon: ReactNode;
+}
+
+const FALLBACK: PreviewItem[] = staticServices.slice(0, 3).map((s) => ({
+  slug: s.slug,
+  title: s.title,
+  summary: s.summary,
+  accent: s.accent,
+  icon: <s.icon size={22} aria-hidden="true" />,
+}));
+
+interface ServicesPreviewProps {
+  items?: PreviewItem[];
+}
+
+export function ServicesPreview({ items = FALLBACK }: ServicesPreviewProps) {
   return (
     <section className="relative overflow-hidden py-24">
       <AmbientBlobs />
@@ -37,7 +58,7 @@ export function ServicesPreview() {
         </motion.div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {services.slice(0, 3).map((service, i) => (
+          {items.map((service, i) => (
             <motion.div
               key={service.slug}
               initial={{ opacity: 0, y: 24 }}
@@ -51,7 +72,7 @@ export function ServicesPreview() {
                     className="flex h-12 w-12 items-center justify-center rounded-xl text-white transition-transform duration-300 group-hover:scale-110"
                     style={{ backgroundColor: service.accent }}
                   >
-                    <service.icon size={22} aria-hidden="true" />
+                    {service.icon}
                   </span>
                   <h3 className="mt-4 font-display text-lg font-semibold text-navy">
                     {service.title}

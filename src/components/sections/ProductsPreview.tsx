@@ -2,13 +2,38 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { products } from "@/data/products";
+import { products as staticProducts } from "@/data/products";
 import { AmbientBlobs } from "@/components/sections/AmbientBlobs";
 import { ProductCard } from "@/components/sections/ProductCard";
 
-export function ProductsPreview() {
+interface PreviewItem {
+  slug: string;
+  title: string;
+  summary: string;
+  hook: string;
+  accent: string;
+  badge: string;
+  icon: ReactNode;
+}
+
+const FALLBACK: PreviewItem[] = staticProducts.slice(0, 3).map((p) => ({
+  slug: p.slug,
+  title: p.title,
+  summary: p.summary,
+  hook: p.hook,
+  accent: p.accent,
+  badge: p.badge,
+  icon: <p.icon size={22} aria-hidden="true" />,
+}));
+
+interface ProductsPreviewProps {
+  items?: PreviewItem[];
+}
+
+export function ProductsPreview({ items = FALLBACK }: ProductsPreviewProps) {
   return (
     <section className="relative overflow-hidden bg-mist/50 py-24">
       <AmbientBlobs />
@@ -37,7 +62,7 @@ export function ProductsPreview() {
         </motion.div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {products.slice(0, 3).map((product, i) => (
+          {items.map((product, i) => (
             <motion.div
               key={product.slug}
               initial={{ opacity: 0, y: 24 }}
@@ -50,7 +75,7 @@ export function ProductsPreview() {
                 title={product.title}
                 summary={product.summary}
                 hook={product.hook}
-                icon={<product.icon size={22} aria-hidden="true" />}
+                icon={product.icon}
                 accent={product.accent}
                 badge={product.badge}
               />

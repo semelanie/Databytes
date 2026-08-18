@@ -16,7 +16,17 @@ const floatingIcons = [
   { Icon: BarChart3, top: "5%", left: "78%", delay: 0.9 },
 ];
 
-export function Hero() {
+interface HeroProps {
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+export function Hero({
+  eyebrow = "Databytes Pty Ltd",
+  title = "Empowering Businesses Through Smart Technology",
+  subtitle = "Helping businesses and government organizations across Seychelles succeed through innovative IT solutions.",
+}: HeroProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -46,15 +56,13 @@ export function Hero() {
           className="relative max-w-xl"
         >
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            Databytes Pty Ltd
+            {eyebrow}
           </p>
           <h1 className="mt-3 font-display text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
-            Empowering <span className="text-primary">Businesses</span>{" "}
-            Through Smart Technology
+            {title}
           </h1>
           <p className="mt-6 max-w-md text-lg text-white/75">
-            Helping businesses and government organizations across
-            Seychelles succeed through innovative IT solutions.
+            {subtitle}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Button href="/services" variant="secondary">

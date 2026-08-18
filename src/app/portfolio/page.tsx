@@ -1,41 +1,41 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
-import { Card } from "@/components/ui/Card";
+import { PageHeader } from "@/components/layout/PageHeader";
+import { PortfolioGrid } from "@/components/sections/PortfolioGrid";
+import { cms } from "@/lib/cms";
 
 export const metadata: Metadata = { title: "Portfolio" };
 
-// Populate with real case studies once client sign-off is confirmed for each.
-const caseStudies = [
-  {
-    title: "Government Website Modernization",
-    summary: "A responsive, accessible site rebuild for a public-sector client.",
-  },
-  {
-    title: "Institutional Booking Platform",
-    summary: "A room/resource booking system replacing a paper-based process.",
-  },
-];
+// Always render fresh — this page reads CMS content that admins
+// can edit at any time, so it must not be statically cached.
+export const dynamic = "force-dynamic";
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const cmsProjects = await cms.getProjects();
+  const projects =
+    cmsProjects.length > 0
+      ? cmsProjects.map((p) => ({
+          slug: p.slug,
+          title: p.title,
+          category: p.category,
+          client: p.client,
+          summary: p.summary,
+          delivery: p.delivery,
+          techStack: p.tech_stack,
+          image: p.image,
+        }))
+      : undefined; // PortfolioGrid falls back to its own static list
+
   return (
-    <Container className="py-20">
-      <h1 className="font-display text-4xl font-bold text-navy">
-        Portfolio &amp; Case Studies
-      </h1>
-      <p className="mt-3 max-w-2xl text-ink/70">
-        A selection of recent work. Full write-ups coming soon.
-      </p>
-
-      <div className="mt-10 grid gap-6 md:grid-cols-2">
-        {caseStudies.map((item) => (
-          <Card key={item.title}>
-            <h2 className="font-display text-lg font-semibold text-navy">
-              {item.title}
-            </h2>
-            <p className="mt-2 text-sm text-ink/70">{item.summary}</p>
-          </Card>
-        ))}
-      </div>
-    </Container>
+    <>
+      <PageHeader
+        eyebrow="Portfolio"
+        title="Portfolio & Case Studies"
+        description="Real projects delivered across government, education, community, and private-sector clients."
+      />
+      <Container className="py-20">
+        <PortfolioGrid projects={projects} />
+      </Container>
+    </>
   );
 }

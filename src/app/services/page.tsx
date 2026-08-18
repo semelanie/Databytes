@@ -3,11 +3,37 @@ import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ServiceCard } from "@/components/sections/ServiceCard";
 import { CTA } from "@/components/sections/CTA";
-import { services } from "@/data/services";
+import { cms } from "@/lib/cms";
+import { resolveIcon } from "@/lib/iconRegistry";
+import { services as staticServices } from "@/data/services";
 
 export const metadata: Metadata = { title: "Services" };
 
-export default function ServicesPage() {
+// Always render fresh — this page reads CMS content that admins
+// can edit at any time, so it must not be statically cached.
+export const dynamic = "force-dynamic";
+
+export default async function ServicesPage() {
+  const cmsServices = await cms.getServices();
+  const services =
+    cmsServices.length > 0
+      ? cmsServices.map((s) => ({
+          slug: s.slug,
+          title: s.title,
+          summary: s.summary,
+          hook: s.hook,
+          accent: s.accent,
+          Icon: resolveIcon(s.icon),
+        }))
+      : staticServices.map((s) => ({
+          slug: s.slug,
+          title: s.title,
+          summary: s.summary,
+          hook: s.hook,
+          accent: s.accent,
+          Icon: s.icon,
+        }));
+
   return (
     <>
       <PageHeader
@@ -27,7 +53,7 @@ export default function ServicesPage() {
               title={service.title}
               summary={service.summary}
               hook={service.hook}
-              icon={<service.icon size={22} aria-hidden="true" />}
+              icon={<service.Icon size={22} aria-hidden="true" />}
               accent={service.accent}
             />
           ))}

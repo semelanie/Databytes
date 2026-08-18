@@ -2,11 +2,39 @@ import type { Metadata } from "next";
 import { Container } from "@/components/ui/Container";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { ProductCard } from "@/components/sections/ProductCard";
-import { products } from "@/data/products";
+import { cms } from "@/lib/cms";
+import { resolveIcon } from "@/lib/iconRegistry";
+import { products as staticProducts } from "@/data/products";
 
 export const metadata: Metadata = { title: "Products" };
 
-export default function ProductsPage() {
+// Always render fresh — this page reads CMS content that admins
+// can edit at any time, so it must not be statically cached.
+export const dynamic = "force-dynamic";
+
+export default async function ProductsPage() {
+  const cmsProducts = await cms.getProducts();
+  const products =
+    cmsProducts.length > 0
+      ? cmsProducts.map((p) => ({
+          slug: p.slug,
+          title: p.title,
+          summary: p.summary,
+          hook: p.hook,
+          accent: p.accent,
+          badge: p.badge,
+          Icon: resolveIcon(p.icon),
+        }))
+      : staticProducts.map((p) => ({
+          slug: p.slug,
+          title: p.title,
+          summary: p.summary,
+          hook: p.hook,
+          accent: p.accent,
+          badge: p.badge,
+          Icon: p.icon,
+        }));
+
   return (
     <>
       <PageHeader
@@ -26,7 +54,7 @@ export default function ProductsPage() {
               title={product.title}
               summary={product.summary}
               hook={product.hook}
-              icon={<product.icon size={22} aria-hidden="true" />}
+              icon={<product.Icon size={22} aria-hidden="true" />}
               accent={product.accent}
               badge={product.badge}
             />
