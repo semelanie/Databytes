@@ -1,66 +1,78 @@
-import type { Metadata } from "next";
-import { Container } from "@/components/ui/Container";
-import { PageHeader } from "@/components/layout/PageHeader";
-import { ProductCard } from "@/components/sections/ProductCard";
+import { Hero } from "@/components/sections/Hero";
+import { QuickLinks } from "@/components/sections/QuickLinks";
+import { MissionVision } from "@/components/sections/MissionVision";
+import { AboutTeaser } from "@/components/sections/AboutTeaser";
+import { TrustedBy } from "@/components/sections/TrustedBy";
+import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
+import { ServicesPreview } from "@/components/sections/ServicesPreview";
+import { IndustriesWeServe } from "@/components/sections/IndustriesWeServe";
+import { ProductsPreview } from "@/components/sections/ProductsPreview";
+import { OurProcess } from "@/components/sections/OurProcess";
+import { CTA } from "@/components/sections/CTA";
 import { cms } from "@/lib/cms";
 import { resolveIcon } from "@/lib/iconRegistry";
-import { products as staticProducts } from "@/data/products";
-
-export const metadata: Metadata = { title: "Products" };
 
 // Always render fresh — this page reads CMS content that admins
 // can edit at any time, so it must not be statically cached.
 export const dynamic = "force-dynamic";
 
-export default async function ProductsPage() {
+export default async function HomePage() {
+  const content = await cms.getSiteContent();
+  const cmsClients = await cms.getClients();
+  const clients =
+    cmsClients.length > 0
+      ? cmsClients.map((c) => ({ name: c.name, src: c.logo_url, wide: c.wide }))
+      : undefined;
+
+  const cmsServices = await cms.getServices();
+  const serviceItems =
+    cmsServices.length > 0
+      ? cmsServices.slice(0, 3).map((s) => {
+          const Icon = resolveIcon(s.icon);
+          return {
+            slug: s.slug,
+            title: s.title,
+            summary: s.summary,
+            accent: s.accent,
+            icon: <Icon size={22} aria-hidden="true" />,
+          };
+        })
+      : undefined;
+
   const cmsProducts = await cms.getProducts();
-  const products =
+  const productItems =
     cmsProducts.length > 0
-      ? cmsProducts.map((p) => ({
-          slug: p.slug,
-          title: p.title,
-          summary: p.summary,
-          hook: p.hook,
-          accent: p.accent,
-          badge: p.badge,
-          Icon: resolveIcon(p.icon),
-        }))
-      : staticProducts.map((p) => ({
-          slug: p.slug,
-          title: p.title,
-          summary: p.summary,
-          hook: p.hook,
-          accent: p.accent,
-          badge: p.badge,
-          Icon: p.icon,
-        }));
+      ? cmsProducts.slice(0, 3).map((p) => {
+          const Icon = resolveIcon(p.icon);
+          return {
+            slug: p.slug,
+            title: p.title,
+            summary: p.summary,
+            hook: p.hook,
+            accent: p.accent,
+            badge: p.badge,
+            icon: <Icon size={22} aria-hidden="true" />,
+          };
+        })
+      : undefined;
 
   return (
     <>
-      <PageHeader
-        eyebrow="Products"
-        title="Product Solutions"
-        description="Ready-built platforms that can be tailored to your organization. Click a product to learn more."
+      <Hero
+        eyebrow={content.hero_eyebrow}
+        title={content.hero_title}
+        subtitle={content.hero_subtitle}
       />
-      <Container className="py-20">
-        <p className="mb-6 text-sm text-ink/50">
-          Tap any product to expand it for details, or tap again to collapse.
-        </p>
-        <div className="grid gap-6 md:grid-cols-2">
-          {products.map((product) => (
-            <ProductCard
-              key={product.slug}
-              slug={product.slug}
-              title={product.title}
-              summary={product.summary}
-              hook={product.hook}
-              icon={<product.Icon size={22} aria-hidden="true" />}
-              accent={product.accent}
-              badge={product.badge}
-            />
-          ))}
-        </div>
-      </Container>
+      <QuickLinks />
+      <MissionVision />
+      <AboutTeaser />
+      <TrustedBy clients={clients} />
+      <WhyChooseUs />
+      <ServicesPreview items={serviceItems} />
+      <IndustriesWeServe />
+      <ProductsPreview items={productItems} />
+      <OurProcess />
+      <CTA />
     </>
   );
 }
